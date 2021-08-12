@@ -1,10 +1,19 @@
 const { request, response } = require('express');
+const  User  = require('../models/user');
+const sequelize = require('../database/db');
 
-
-const usersGet = (req = request, res = response) => {
-   res.json({
-      msg: ' API - users Get'
-   })
+const usersGet = async (req = request, res = response) => {
+   await User.create({
+      usuario: "SantiUser",
+      name: "SantiagoAcamica", 
+      birthday: new Date(1996, 12, 7)
+   }).then( user => {
+      res.json({
+         msg: ' API - users Get',
+         user
+      });
+   });
+   
 }
 
 const usersGetById = (req = request, res = response ) => {

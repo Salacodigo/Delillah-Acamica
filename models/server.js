@@ -1,19 +1,22 @@
 const express = require('express');
 const cors = require('cors');
+const sequelize = require('../database/db');
+
 
 //Se crea una clase que maneja el servidor 
 class Server {
 
-   constructor(){
+   constructor() {
       this.app = express();
       this.port = process.env.PORT || 3000;
-      
+
       //Rutas utilizadas
       this.productsPath = '/api/products';
       this.usersPath = '/api/users';
       this.ordersPath = '/api/orders';
 
       //Conectar a base de datos
+      this.connectDB();
 
       //Middlewares
       this.middlewares();
@@ -23,24 +26,34 @@ class Server {
 
    }
 
-   middlewares(){
+   middlewares() {
       //CORS
-      this.app.use( cors() );
+      this.app.use(cors());
 
       //Lctura y parseo del body
       this.app.use(express.json());
 
    }
 
-   routes(){
+   async connectDB() {
+      //Conectarse a la base de datos
+      sequelize.sync({ force: true }).then(() => {
+         console.log("Nos hemos conectado a la base de datos");
+      }).catch(error => {
+         console.log('Se ha producido un error', error);
+      })
+
+   }
+
+   routes() {
       this.app.use(this.productsPath, require('../routes/products'));
       this.app.use(this.usersPath, require('../routes/users'))
       this.app.use(this.ordersPath, require('../routes/orders'))
    }
 
 
-   listen(){
-      this.app.listen(this.port, ()=> {
+   listen() {
+      this.app.listen(this.port, () => {
          console.log(`Servidor corriendo en el puerto ${this.port}`);
       })
    }
@@ -48,4 +61,4 @@ class Server {
 }
 
 
-module.exports =  Server;
+module.exports = Server;
