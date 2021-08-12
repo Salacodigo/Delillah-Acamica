@@ -37,7 +37,7 @@ class Server {
 
    async connectDB() {
       //Conectarse a la base de datos
-      sequelize.sync({ force: true }).then(() => {
+      sequelize.sync({ force: false }).then(() => {
          console.log("Nos hemos conectado a la base de datos");
       }).catch(error => {
          console.log('Se ha producido un error', error);
