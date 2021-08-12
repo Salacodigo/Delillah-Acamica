@@ -39,20 +39,5 @@ const User = sequelize.define("user",{
    }
 
 })
-// , {
-//    sequelize,
-//    modelName: "user"
-// })
 
 module.exports = User;
-
-
-
-//  id_usuario: {},
-//  usuario: {},
-//  rol: {},
-//  nombre: {},
-//  correo: {},
-//  telefono: {},
-//  direccion: {},
-//  contraseña: {}
