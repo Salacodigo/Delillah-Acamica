@@ -12,7 +12,7 @@ const usersGet = async (req = request, res = response) => {
 
    if (users) {
       res.status(200).json({
-         msg: ' API - users Get by id',
+         msg: ' API - Total users',
          users
       })
    } else {
@@ -74,11 +74,12 @@ const usersPost = async (req = request, res = response) => {
             });
          });
 
-   } catch (error) {
+   } catch (err) {
 
-      console.log(error);
+      console.log(err);
       res.status(500).json({
-         msg: 'Hable con el administrador'
+         msg: 'Hable con el administrador',
+         err: err.errors
       })
    }
 
@@ -106,7 +107,8 @@ const usersPut = async (req = request, res = response) => {
    } catch (error) {
       console.log(error);
       res.status(500).json({
-         msg: 'Hable con el administrador'
+         msg: 'Hable con el administrador',
+         err: err.errors
       })
    }
 

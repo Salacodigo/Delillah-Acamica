@@ -1,5 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const { check } = require('express-validator');
+
+const { 
+   validarCampos,
+   validarJWT,
+   tieneRole,
+   propietarioDatos
+} = require('../middlewares/index');
 
 
 const {
@@ -12,15 +20,46 @@ const {
 
 
 
-router.get('/', usersGet);
+router.get('/',
+[ 
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+], 
+usersGet);
 
-router.get('/:id', usersGetById);
+router.get('/:id',
+[ 
+   validarJWT,
+   tieneRole('ADMIN_ROLE', 'USER_ROLE'),
+   propietarioDatos,
+   validarCampos
+]
+,usersGetById);
 
-router.post('/', usersPost);
+router.post('/', 
+[ 
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+]
+,usersPost);
 
-router.put('/:id',usersPut);
+router.put('/:id',
+[ 
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+]
+,usersPut);
 
-router.delete('/:id',usersDelete);
+router.delete('/:id',
+[ 
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+]
+,usersDelete);
 
 
 module.exports = router;

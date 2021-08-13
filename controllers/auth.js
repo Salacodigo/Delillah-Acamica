@@ -5,14 +5,16 @@ const  User  = require('../models/user');
 const { generarJWT } = require('../helpers/generar-jwt');
 
 
-const login = async( req = request, res = response) => {
+const login = async ( req = request, res = response) => {
 
    const { correo, password } = req.body;
 
    try{
 
       //Verificar si email existe
-      const user = await User.findOne({ correo });
+      const user = await User.findOne({ where:{correo} });
+
+
       if( !user ) {
          return res.status(400).json({
             msg: 'Usuario / Password no son correctos - correo'
@@ -39,7 +41,6 @@ const login = async( req = request, res = response) => {
 
       res.status(200).json({
          msg: 'Login ok',
-         user, 
          token
       })
 

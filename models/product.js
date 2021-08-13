@@ -1,31 +1,29 @@
 const{ Model, DataTypes } = require('sequelize');
 const sequelize = require('../database/db');
 
-const User = sequelize.define("user",{
+const Product = sequelize.define("product",{
 
-   usuario: {
+   img_url: {
+      type: DataTypes.STRING,
+      validate:{
+         isUrl: true,
+      },
+      notEmpty: true,
+      allowNull: false
+   },
+   nombre: {
       type: DataTypes.STRING,
       notEmpty: true,
       allowNull: false
    },
-   rol: {
-      type: DataTypes.STRING,
-      validate: {
-         isIn: [['ADMIN_ROLE', 'USER_ROLE']],
-      },
-      defaultValue: "USER_ROLE",
-      allowNull: true
-   },
-   nombre:{
+   nombre_corto:{
       type: DataTypes.STRING,
       notEmpty: true,
       allowNull: false
    },
    correo:{
       type: DataTypes.STRING,
-      validate:{
-         unique: true,
-      },
+      unique: true,
       isEmail: true,
       allowNull: false
    },
@@ -48,6 +46,7 @@ const User = sequelize.define("user",{
       type: DataTypes.BOOLEAN,
       defaultValue: true
    }
+
 })
 
-module.exports = User;
+module.exports = Product;
