@@ -3,6 +3,8 @@ const cors = require('cors');
 const sequelize = require('../database/db');
 
 
+const  {createBasicUsers}  = require('../database/initialValues')
+
 //Se crea una clase que maneja el servidor 
 class Server {
 
@@ -38,12 +40,14 @@ class Server {
 
    async connectDB() {
       //Conectarse a la base de datos
-      sequelize.sync({ force: false }).then(() => {
-         console.log("Nos hemos conectado a la base de datos");
+      await sequelize.sync({ force: false })
+         .then(() => {
+         console.log("Se realiza la conexión a la base de datos...");
       }).catch(error => {
          console.log('Se ha producido un error', error);
-      })
-
+      });
+      console.log("VALORES INICIALES SEMILLA EN LA BASE DE DATOS:");
+      await createBasicUsers;
    }
 
    routes() {

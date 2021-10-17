@@ -1,21 +1,52 @@
 const express = require('express');
 const router = express.Router();
 
+const { 
+   validarCampos,
+   validarJWT,
+   tieneRole,
+   propietarioDatos
+} = require('../middlewares/index');
+
 const{ 
    productsGet,
+   productsGetById,
    productsPost,
    productsPut,
    productsDelete
 } = require('../controllers/products');
 
 
-router.get('/', productsGet);
+router.get('/',[
+   validarJWT
+],
+ productsGet);
 
-router.post('/', productsPost);
+ router.get('/:id',[
+   validarJWT
+],
+ productsGetById); 
 
-router.put('/', productsPut);
+router.post('/', [
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+],
+productsPost);
 
-router.delete('/', productsDelete);
+router.put('/:id', [
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+],
+productsPut);
+
+router.delete('/:id', [
+   validarJWT,
+   tieneRole('ADMIN_ROLE'),
+   validarCampos
+],
+productsDelete);
 
 
 module.exports = router;

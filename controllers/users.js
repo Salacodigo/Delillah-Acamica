@@ -1,7 +1,8 @@
 const { request, response } = require('express');
-const User = require('../models/user');
 const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
+
+const User = require('../models/user');
 
 const usersGet = async (req = request, res = response) => {
    const users = await User.findAndCountAll(
@@ -39,7 +40,6 @@ const usersGetById = async (req = request, res = response) => {
          msg: `No existe un usuario con el id ${id}`
       })
    }
-
 
 }
 
