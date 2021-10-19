@@ -3,8 +3,8 @@ const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
-
-//roles
+const Role = require('../models/rol');
+const Product = require('../models/product');
 
 
 //usuarios
@@ -52,7 +52,7 @@ const createBasicUsers = async () => {
          User.create(seedUser)
             .then( user => {
                console.log({
-                  msg: "Se ha guardado",
+                  msg: "Se ha guardado el usuario",
                   user: user.dataValues
                })
             })
@@ -63,23 +63,101 @@ const createBasicUsers = async () => {
       
    } catch (err) {
       console.log({
-         msg: 'Error creando los valores iniciales',
+         msg: 'Error creando los usuarios iniciales',
          err: err.errors
       })
    }
 
 }
 
-createBasicUsers();
+//roles
+const seedRoles = [
+   {  rol: 'ADMIN_ROLE' },
+   {  rol: 'USER_ROLE' },
+]
+
+const createBasicRoles = async () => {
+   
+   try {
+      
+      console.log("R O L E S:");
+      seedRoles.forEach( seedRole =>{
+         Role.create(seedRole)
+         .then( role => {
+               console.log({
+                  msg: "Se ha guardado el rol",
+                  role: role.dataValues
+               })
+         })
+         .catch(err => {
+            console.log(err)
+         })
+      })
+      
+   } catch (err) {
+      console.log({
+         msg: 'Error creando los roles iniciales',
+         err: err.errors
+      })
+   }
+
+}
+
+//products
+const seedProducts = [
+   {
+      img_url: "https://cdn.pixabay.com/photo/2017/03/23/19/57/asparagus-2169305_960_720.jpg",
+      nombre: "esparragos",
+      nombre_corto: "ESPA",
+      precio: 20000,
+      status: true,
+  },
+  {
+      img_url: "https://cdn.pixabay.com/photo/2017/03/23/19/57/asparagus-2169305_960_720.jpg",
+      nombre: "pasta",
+      nombre_corto: "PASTA",
+      precio: 10000,
+      status: true,
+  }
+]
+
+const createBasicProducts = async () => {
+   
+   try {
+      
+      console.log("P R O D U C T O S:");
+      seedProducts.forEach( seedProduct =>{
+         Product.create(seedProduct)
+         .then( product => {
+               console.log({
+                  msg: "Se ha guardado el producto",
+                  product: product.dataValues
+               })
+         })
+         .catch(err => {
+            console.log(err)
+         })
+      })
+      
+   } catch (err) {
+      console.log({
+         msg: 'Error creando los productos iniciales',
+         err: err.errors
+      })
+   }
+
+}
+
+//Pedidos
+
+const initSeedValues = async () => {
+   createBasicUsers();
+   createBasicRoles();
+   createBasicProducts();
+}
 
 module.exports = {
-   createBasicUsers
+   initSeedValues,
 }
 
 
-
-//Platos
-
-
-
-//Pedidos

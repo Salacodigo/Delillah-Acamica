@@ -8,6 +8,7 @@ const Role = sequelize.define("role",{
       validate: {
          isIn: [['ADMIN_ROLE', 'USER_ROLE']],
       },
+      unique: true,
       defaultValue: 'USER_ROLE',
       allowNull: false
    }
