@@ -1,71 +1,86 @@
-const{ Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database/db');
 
-const { Role } = require('./rol')
+const USER_TABLE = 'users';
 
-const User = sequelize.define("user",{
-
+const UserSchema = {
    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
+      allowNull: false,
       autoIncrement: true,
-      allowNull: false
+      primaryKey: true,
+      type: DataTypes.INTEGER,
   },
    usuario: {
+      allowNull: false,
+      notEmpty: true,
       type: DataTypes.STRING,
       validate:{
          len: [2,50]
       },
-      notEmpty: true,
-      allowNull: false
    },
    rol: {
+      allowNull: true,
       type: DataTypes.STRING,
       validate: {
          isIn: [['ADMIN_ROLE', 'USER_ROLE']]
       },
       defaultValue: "USER_ROLE",
-      allowNull: true
    },
    nombre:{
+      notEmpty: true,
+      allowNull: false,
       type: DataTypes.STRING,
       validate:{
          len: [2,50]
       },
-      notEmpty: true,
-      allowNull: false
    },
    correo:{
+      allowNull: false,
       type: DataTypes.STRING,
       unique: true,
       validate:{
          isEmail: true,
          len: [5,90],
       },
-      allowNull: false
    },
    telefono:{
+      allowNull: false,
       type: DataTypes.STRING,
       validate:{
          len: [5,20],
       },
       notEmpty: true,
-      allowNull: false
    },
    direccion: {
+      allowNull: false,
       type: DataTypes.STRING,
       notEmpty: true,
-      allowNull: false
    },
    password: {
+      allowNull: false,
       type: DataTypes.STRING,
       notEmpty: true,
-      allowNull: false
    },
    status:{
       type: DataTypes.BOOLEAN,
       defaultValue: true
    }
-})
+}
 
-module.exports = User;
+class User extends Model {
+
+   static associate(models) {
+      //
+   }
+
+   static config(sequelize) {
+      return {
+         sequelize,
+         tableName: USER_TABLE,
+         modelName: 'User',
+         timestamps: true,
+      }
+   }
+}
+
+module.exports = { USER_TABLE, UserSchema, User }

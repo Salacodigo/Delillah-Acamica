@@ -6,7 +6,7 @@ const {
    ordersPost,
    ordersPut,
    ordersDelete
-} = require('../controllers/orders');
+} = require('../services/orders');
 
 
 

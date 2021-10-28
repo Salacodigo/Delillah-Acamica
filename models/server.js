@@ -3,7 +3,12 @@ const cors = require('cors');
 const sequelize = require('../database/db');
 
 
-const  { initSeedValues }  = require('../database/initialValues')
+const { initSeedValues }  = require('../database/initialValues');
+const {  authRouter,
+         productsRouter,
+         usersRouter,
+         ordersRouter,
+      } = require('../routes/index')
 
 //Se crea una clase que maneja el servidor 
 class Server {
@@ -56,10 +61,13 @@ class Server {
    }
 
    routes() {
-      this.app.use(this.authPath, require('../routes/auth'));
-      this.app.use(this.productsPath, require('../routes/products'));
-      this.app.use(this.usersPath, require('../routes/users'))
-      this.app.use(this.ordersPath, require('../routes/orders'))
+      this.app.use(this.authPath, authRouter);
+
+      this.app.use(this.productsPath, productsRouter);
+      
+      this.app.use(this.usersPath, usersRouter);
+
+      this.app.use(this.ordersPath, ordersRouter);
    }
 
 

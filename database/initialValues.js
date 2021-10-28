@@ -1,10 +1,10 @@
 //Script reservado para inicializar los valores de la base de datos
-const sequelize = require('../database/db');
-const bcryptjs = require('bcryptjs');
+const sequelize   = require('../database/db');
+const bcryptjs    = require('bcryptjs');
 
-const User = require('../models/user');
-const Role = require('../models/rol');
-const Product = require('../models/product');
+const { User }    = require('../models/user');
+const { Role }    = require('../models/rol');
+const { Product } = require('../models/product');
 
 
 //usuarios
@@ -43,7 +43,7 @@ const createBasicUsers = async () => {
    try {
       
       console.log("U S U A R I O S:");
-      seedUsers.forEach( seedUser =>{
+      seedUsers.forEach( seedUser => {
 
          //Encriptar la contraseña
          const salt = bcryptjs.genSaltSync();

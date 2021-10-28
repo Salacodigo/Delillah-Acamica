@@ -1,7 +1,7 @@
 const { request, response} = require('express');
 const bcryptjs = require('bcryptjs');
 
-const  User  = require('../models/user');
+const { User }  = require('../models/user');
 const { generarJWT } = require('../helpers/generar-jwt');
 
 
@@ -41,7 +41,7 @@ const login = async ( req = request, res = response) => {
 
       res.status(200).json({
          msg: 'Login ok',
-         token
+         token,
       })
 
    } catch (error) {

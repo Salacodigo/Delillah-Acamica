@@ -1,6 +1,8 @@
 const { Sequelize } = require('sequelize');
 const { database } = require('./config');
 
+const { setupModels } = require('../models/index');
+
 
 const sequelize = new Sequelize(
    database.database,
@@ -8,8 +10,10 @@ const sequelize = new Sequelize(
    database.password,
    {
       host: database.host,
-      dialect: "mysql"
+      dialect: "mysql",
    }
 );
+
+setupModels(sequelize);
 
 module.exports = sequelize;

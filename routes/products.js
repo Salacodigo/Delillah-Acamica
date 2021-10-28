@@ -14,7 +14,7 @@ const{
    productsPost,
    productsPut,
    productsDelete
-} = require('../controllers/products');
+} = require('../services/products');
 
 
 router.get('/',[

@@ -2,7 +2,7 @@ const { request, response } = require('express');
 const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
 
-const User = require('../models/user');
+const { User } = require('../models/user');
 
 const usersGet = async (req = request, res = response) => {
    const users = await User.findAndCountAll(

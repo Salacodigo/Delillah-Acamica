@@ -1,7 +1,9 @@
-const{ Model, DataTypes } = require('sequelize');
+const{ Model, DataTypes, Sequelize} = require('sequelize');
 const sequelize = require('../database/db');
 
-const Role = sequelize.define("role",{
+const ROLE_TABLE = 'roles';
+
+const RoleSchema = {
 
    rol: {
       type: DataTypes.STRING,
@@ -12,6 +14,22 @@ const Role = sequelize.define("role",{
       defaultValue: 'USER_ROLE',
       allowNull: false
    }
-})
+}
 
-module.exports = Role;
+class Role extends Model {
+
+   static associate(models) {
+      //
+   }
+
+   static config (sequelize) {
+      return {
+         sequelize,
+         tableName: ROLE_TABLE,
+         modelName: 'Role',
+         timestamps: true,
+      }
+   }
+}
+
+module.exports = { ROLE_TABLE, RoleSchema, Role}

@@ -1,7 +1,9 @@
-const{ Model, DataTypes } = require('sequelize');
+const{ Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database/db');
 
-const Product = sequelize.define("product",{
+const PRODUCT_TABLE = 'products';
+
+const ProductSchema = {
 
    id: {
       type: DataTypes.INTEGER,
@@ -38,6 +40,22 @@ const Product = sequelize.define("product",{
       type: DataTypes.BOOLEAN,
       defaultValue: true
    }
-})
+}
 
-module.exports = Product;
+class Product extends Model {
+   
+   static asscociate(){
+
+   }
+
+   static config (sequelize) {
+      return {
+         sequelize,
+         tableName: PRODUCT_TABLE,
+         modelName: 'Product',
+         timestamps: true,
+      }
+   }
+}
+
+module.exports = { PRODUCT_TABLE, ProductSchema, Product } ;

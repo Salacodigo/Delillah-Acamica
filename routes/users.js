@@ -16,7 +16,7 @@ const {
    usersPost,
    usersPut,
    usersDelete
-} = require('../controllers/users')
+} = require('../services/users')
 
 
 
