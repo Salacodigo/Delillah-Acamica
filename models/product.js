@@ -44,7 +44,7 @@ const ProductSchema = {
 
 class Product extends Model {
    
-   static asscociate(){
+   static associate(models){
 
    }
 

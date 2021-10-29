@@ -3,13 +3,20 @@ const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
 
 const { User } = require('../models/user');
+const { Role } = require('../models/role');
 
 const usersGet = async (req = request, res = response) => {
-   const users = await User.findAndCountAll(
-      {
-         where: { status: true }
-      }
-   );
+   const options = 
+   {
+      where: { status: true },
+      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion'],
+      include: [{
+         model: Role,
+         as: 'role',
+         attributes: ['role']
+      }]
+   }
+   const users = await User.findAndCountAll(options);
 
    if (users) {
       res.status(200).json({
@@ -28,7 +35,11 @@ const usersGet = async (req = request, res = response) => {
 const usersGetById = async (req = request, res = response) => {
    const { id } = req.params;
 
-   const user = await User.findByPk(id);
+   const options = {
+      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion']
+   }
+
+   const user = await User.findByPk(id, options);
 
    if (user) {
       res.status(200).json({
@@ -66,13 +77,14 @@ const usersPost = async (req = request, res = response) => {
       const salt = bcryptjs.genSaltSync();
       body.password = bcryptjs.hashSync(body.password, salt);
 
-      await User.create(body)
-         .then(user => {
-            res.status(200).json({
-               msg: ' API - users Post',
-               user
-            });
-         });
+      const newUser = await User.create(body, 
+         {include : ['role']}
+      );
+
+      res.status(200).json({
+         msg: ' API - users Post',
+         newUser
+      });
 
    } catch (err) {
 

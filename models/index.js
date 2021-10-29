@@ -1,5 +1,5 @@
 const { User, UserSchema } = require('../models/user');
-const { Role, RoleSchema } = require('../models/rol');
+const { Role, RoleSchema } = require('./role');
 const { Product, ProductSchema } = require('../models/product');
 const { Order, OrderSchema } = require('../models/order');
 
@@ -9,9 +9,10 @@ function setupModels(sequelize) {
   Product.init(ProductSchema, Product.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
 
-  // User.associate(sequelize.models);
-  // Role.associate(sequelize.models);
-  // Product.associate(sequelize.models);
+  User.associate(sequelize.models);
+  Role.associate(sequelize.models);
+  Product.associate(sequelize.models);
+  Order.associate(sequelize.models);
 }
 
 module.exports = { setupModels };

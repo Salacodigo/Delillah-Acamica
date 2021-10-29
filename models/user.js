@@ -18,14 +18,6 @@ const UserSchema = {
          len: [2,50]
       },
    },
-   rol: {
-      allowNull: true,
-      type: DataTypes.STRING,
-      validate: {
-         isIn: [['ADMIN_ROLE', 'USER_ROLE']]
-      },
-      defaultValue: "USER_ROLE",
-   },
    nombre:{
       notEmpty: true,
       allowNull: false,
@@ -64,13 +56,25 @@ const UserSchema = {
    status:{
       type: DataTypes.BOOLEAN,
       defaultValue: true
-   }
+   },
+
+   // rol: {
+   //    allowNull: true,
+   //    type: DataTypes.STRING,
+   //    validate: {
+   //       isIn: [['ADMIN_ROLE', 'USER_ROLE']]
+   //    },
+   //    defaultValue: "USER_ROLE",
+   // },
 }
 
 class User extends Model {
 
    static associate(models) {
-      //
+      this.hasOne(models.Role, {
+         as: 'role',
+         foreignKey: 'user_id',
+       });
    }
 
    static config(sequelize) {

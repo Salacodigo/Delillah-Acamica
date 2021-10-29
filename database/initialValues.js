@@ -3,7 +3,7 @@ const sequelize   = require('../database/db');
 const bcryptjs    = require('bcryptjs');
 
 const { User }    = require('../models/user');
-const { Role }    = require('../models/rol');
+const { Role }    = require('../models/role');
 const { Product } = require('../models/product');
 
 
@@ -11,7 +11,7 @@ const { Product } = require('../models/product');
 const seedUsers = [
    {
       usuario: "SantiUser1",
-      rol: "ADMIN_ROLE",
+      role: "ADMIN_ROLE",
       nombre: "SantiagoCliente",
       correo: "cliente1@email.com",
       telefono: "8555555",
@@ -20,7 +20,7 @@ const seedUsers = [
    },
    {
       usuario: "SantiUser2",
-      rol: "USER_ROLE",
+      role: "USER_ROLE",
       nombre: "SantiagoCliente",
       correo: "cliente2@email.com",
       telefono: "5888888",
@@ -29,7 +29,7 @@ const seedUsers = [
    },
    {
       usuario: "SantiUser3",
-      rol: "USER_ROLE",
+      role: "USER_ROLE",
       nombre: "SantiagoCliente",
       correo: "cliente3@email.com",
       telefono: "9777777",
@@ -72,8 +72,18 @@ const createBasicUsers = async () => {
 
 //roles
 const seedRoles = [
-   {  rol: 'ADMIN_ROLE' },
-   {  rol: 'USER_ROLE' },
+   {  
+      role: 'ADMIN_ROLE',
+      userId: 1,
+   },
+   {  
+      role: 'USER_ROLE',
+      userId: 2,
+   },
+   {  
+      role: 'USER_ROLE',
+      userId: 3,
+   },
 ]
 
 const createBasicRoles = async () => {

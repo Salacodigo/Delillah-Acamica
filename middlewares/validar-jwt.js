@@ -16,10 +16,13 @@ const validarJWT = async(req =request, res= response, next) => {
    try{
 
       const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
-      console.log({ uid })
 
-      // Leer el usuario que corresponde al uid
-      const user = await User.findByPk( uid );
+      // Leer el usuario que corresponde al userId
+      const options = {
+         include: ['role'],
+      }
+      const user = await User.findByPk( uid, options );
+      console.log( "user provisional", user);
       
       if( !user ){
          return res.status(401).json({
@@ -27,7 +30,7 @@ const validarJWT = async(req =request, res= response, next) => {
          })
       }
       
-      //Verificar si el uid tiene estado true
+      //Verificar si el user tiene estado true
       if (!user.status ){
          return res.status(401).json({
             msg: 'Token no válido - Usuario con estado: false'

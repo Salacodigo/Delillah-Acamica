@@ -50,7 +50,7 @@ class Server {
       console.log('');
       console.log('');
       //Conectarse a la base de datos
-      await sequelize.sync({ force: false })
+      await sequelize.sync({ force: true })
          .then(() => {
          console.log("Se realiza la conexión a la base de datos...");
       }).catch(error => {
