@@ -1,15 +1,16 @@
 const { request, response } = require('express');
-const Product = require('../models/product');
-const sequelize = require('../database/db');
+const { Product } = require('../models/product');
 
+const { models } = require('../database/db');
 
-const productsGet = async(req = request, res = response) => {
+const productsGet = async (req = request, res = response) => {
 
-   const products = await Product.findAndCountAll(
-      {
-         where: { status: true }
-      }
-   );
+   const options = {
+      where: { status: true },
+      attributes: ['id', 'img_url', 'nombre', 'nombre_corto', 'precio']
+   };
+
+   const products = await Product.findAndCountAll(options);
 
    if (products) {
       res.status(200).json({
@@ -28,7 +29,12 @@ const productsGet = async(req = request, res = response) => {
 const productsGetById = async (req = request, res = response) => {
    const { id } = req.params;
 
-   const product = await Product.findByPk(id);
+   const options = {
+      where: { status: true },
+      attributes: ['id', 'img_url', 'nombre', 'nombre_corto', 'precio']
+   };
+
+   const product = await Product.findByPk(id, options);
 
    if (product) {
       res.status(200).json({
@@ -47,7 +53,7 @@ const productsGetById = async (req = request, res = response) => {
 const productsPost = async(req = request, res = response) => {
 
    const body = req.body;
-   const {nombre_corto} = req.body;
+   const { nombre_corto } = req.body;
 
    try {
 
@@ -63,13 +69,13 @@ const productsPost = async(req = request, res = response) => {
          });
       }
 
-      await Product.create(body)
-         .then(product => {
-            res.status(200).json({
-               msg: ' API - product Post',
-               product
-            });
-         });
+      const newProduct = await Product.create(body);
+       
+      res.status(200).json({
+         msg: ' API - product Post',
+         newProduct
+      });
+       
 
    } catch (err) {
 

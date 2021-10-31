@@ -56,7 +56,6 @@ class Server {
       }).catch(error => {
          console.log('Se ha producido un error', error);
       });
-      console.log("VALORES INICIALES SEMILLA EN LA BASE DE DATOS:");
       await initSeedValues();
    }
 

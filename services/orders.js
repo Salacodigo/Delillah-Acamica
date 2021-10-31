@@ -1,35 +1,94 @@
 const { request, response } = require('express');
 
+const { models } = require('../database/db')
 
-const ordersGet = (req = request, res= response) => {
-   const user = req.body;
+const { Order } = require('../models/order');
 
-   res.json({
-      msg: 'API - Get Orders',
-      user
+const ordersGet = async (req = request, res= response) => {
 
-   })
+   const options = {
+      where: { status: true }
+   };
+
+   const orders = await Order.findAndCountAll(options);
+
+   if (orders) {
+      res.status(200).json({
+         msg: 'API - Get Orders',
+         orders
+      })
+   } else {
+      res.status(404).json({
+         msg: 'No existen pedidos - orders - en la base de datos'
+      })
+   }
+};
+
+
+const ordersGetById = async (req = request, res = response) => {
+   const { id } = req.params;
+
+   const options = {
+      where: { status: true },
+      include: [
+         { 
+            association: 'user',
+            include: ['role']
+         }
+      ]
+   };
+
+   const order = await Order.findByPk(id, options);
+
+   if(order){
+      res.status(200).json({
+         msg: 'API - orders get by id',
+         order
+      });
+   } else {
+      res.status(404).json({
+         msg: `No existe la orden con el id ${id}`
+      });
+   }
+
+};
+
+
+const ordersPost = async (req = request, res = response) => {
+
+   const body = req.body;
+
+   try {
+      const newOrder = await Order.create(body);
+      
+      res.status(200).json({
+         msg: 'API - Post orders',
+         newOrder
+      })
+
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         msg: 'Hable con el administrador',
+         err: err.errors
+      });
+   }
+
+
 }
 
 
-const ordersPost = (req = request, res = response) => {
-   res.json({
-      msg: 'API - Post orders',
-   })
-}
-
-
-const ordersPut = (req = request, res = response) =>{
-   res.json({
+const ordersPut = async (req = request, res = response) =>{
+   res.status(200).json({
       msg: 'API - Put orders'
    })
 }
 
 
-const ordersDelete = (req = request, res = response) => {
+const ordersDelete = async (req = request, res = response) => {
    const id = req.params.id;
 
-   res.json({
+   res.status(200).json({
       msg: 'API - Delete order',
       id
    })
@@ -37,8 +96,8 @@ const ordersDelete = (req = request, res = response) => {
 
 module.exports = {
    ordersGet,
+   ordersGetById,
    ordersPost,
    ordersPut,
    ordersDelete
-
 }

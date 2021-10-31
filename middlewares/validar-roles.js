@@ -39,10 +39,8 @@ const propietarioDatos = async (req = request, res = response,    next) => {
             requestRole
          })
       } 
-      
    }
    
-
    next();
 }
 

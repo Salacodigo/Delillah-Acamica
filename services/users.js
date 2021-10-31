@@ -2,6 +2,8 @@ const { request, response } = require('express');
 const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
 
+const { models } = require('../database/db');
+
 const { User } = require('../models/user');
 const { Role } = require('../models/role');
 

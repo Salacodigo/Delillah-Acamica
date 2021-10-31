@@ -24,7 +24,6 @@ const RoleSchema = {
          model: USER_TABLE,
          key: 'id'
       },
-
    }
 }
 

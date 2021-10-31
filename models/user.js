@@ -1,5 +1,4 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const sequelize = require('../database/db');
 
 const USER_TABLE = 'users';
 
@@ -74,7 +73,13 @@ class User extends Model {
       this.hasOne(models.Role, {
          as: 'role',
          foreignKey: 'user_id',
-       });
+      });
+
+      this.hasMany(models.Order, {
+         as: 'orders',
+         foreignKey: 'customerId'
+      })
+
    }
 
    static config(sequelize) {
