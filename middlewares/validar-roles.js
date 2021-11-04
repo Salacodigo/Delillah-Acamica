@@ -9,8 +9,8 @@ const tieneRole = ( ...roles ) => {
             msg: 'Se quiere verificar el rol sin validar el token primero'
          })
       }
-      const requestRole = req.user.role.dataValues.role;
-      console.log({ requestRole })
+      const requestRole = req.user.role;
+      
       if( !roles.includes( requestRole )){
          return res.status(401).json({
             msg: `El servicio requiere uno de estos ${roles}`
@@ -24,8 +24,9 @@ const tieneRole = ( ...roles ) => {
 const propietarioDatos = async (req = request, res = response,    next) => {
 
    const { id } = req.params;
+   
    const idSolicitante = req.user.id;
-   const requestRole = req.user.role.dataValues.role;
+   const requestRole = req.user.role;
    
    const idsIguales = (id == idSolicitante);
    

@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const USER_TABLE = require('../models/user')
+const USER_TABLE = require('../models/user');
 
 const ORDER_TABLE = 'orders';
 
@@ -24,8 +24,6 @@ const OrderSchema = {
       defaultValue: 'NUEVO',
       allowNull: false
    },
-   //products
-   //valor total
    paymentMethod: {
       type: DataTypes.STRING,
       validate: {
@@ -40,7 +38,7 @@ const OrderSchema = {
       field: 'created_at',
       defaultValue: Sequelize.NOW,
    },
-   //referencia a user
+   // Referencia a user
    userId: {
       field: 'user_id',
       allowNull: false,
@@ -50,7 +48,10 @@ const OrderSchema = {
          model: USER_TABLE,
          key: 'id'
       },
-   }
+   },
+   // Referencia a los productos
+   
+   //valor total
 
 
 }
@@ -59,9 +60,17 @@ const OrderSchema = {
 class Order extends Model {
    
    static associate(models) {
+      
       this.belongsTo(models.User, {
-         as: 'user',
+         as: 'user'
       });
+
+      this.belongsToMany(models.Product, {
+         as: 'items',
+         through: models.OrderProduct, // Tabla que hace el JOIN
+         foreignKey: 'orderId', //llave de la tabla donde estoy resolviendo la relación
+         otherKey: 'productId' // La otra llave
+      })
    }
 
    static config(sequelize) {

@@ -56,28 +56,22 @@ const UserSchema = {
       type: DataTypes.BOOLEAN,
       defaultValue: true
    },
-
-   // rol: {
-   //    allowNull: true,
-   //    type: DataTypes.STRING,
-   //    validate: {
-   //       isIn: [['ADMIN_ROLE', 'USER_ROLE']]
-   //    },
-   //    defaultValue: "USER_ROLE",
-   // },
+   role: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+         isIn: [['ADMIN_ROLE', 'USER_ROLE']]
+      },
+      defaultValue: "USER_ROLE",
+   },
 }
 
 class User extends Model {
 
    static associate(models) {
-      this.hasOne(models.Role, {
-         as: 'role',
-         foreignKey: 'user_id',
-      });
-
       this.hasMany(models.Order, {
          as: 'orders',
-         foreignKey: 'customerId'
+         foreignKey: 'user_id'
       })
 
    }

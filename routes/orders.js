@@ -13,7 +13,8 @@ const {
    ordersGetById,
    ordersPost,
    ordersPut,
-   ordersDelete
+   ordersDelete,
+   orderAddItem
 } = require('../services/orders');
 
 
@@ -29,13 +30,19 @@ router.get('/:id', [
    tieneRole('ADMIN_ROLE', 'USER_ROLE'),
    propietarioDatos,
    validarCampos,
-] ,ordersGetById);
+], ordersGetById);
 
 router.post('/',[
    validarJWT,
    tieneRole('ADMIN_ROLE', 'USER_ROLE'),
    validarCampos
-],ordersPost);
+], ordersPost);
+
+router.post('/add-item',[
+   validarJWT,
+   tieneRole('ADMIN_ROLE', 'USER_ROLE'),
+   validarCampos
+], orderAddItem);
 
 router.put('/',[
    validarJWT,

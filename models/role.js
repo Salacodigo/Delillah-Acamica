@@ -15,25 +15,12 @@ const RoleSchema = {
       defaultValue: 'USER_ROLE',
       allowNull: false
    },
-   userId: {
-      field: 'user_id',
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      unique: true,
-      references: {
-         model: USER_TABLE,
-         key: 'id'
-      },
-   }
 }
 
 class Role extends Model {
 
    static associate(models) {
-      this.belongsTo(models.User, { 
-         as: 'user',
-         foreignKey: 'user_id', 
-      });
+      //
    }
 
    static config (sequelize) {
@@ -47,3 +34,21 @@ class Role extends Model {
 }
 
 module.exports = { ROLE_TABLE, RoleSchema, Role}
+
+
+// const{ Model, DataTypes } = require('sequelize');
+// const sequelize = require('../database/db');
+
+// const Role = sequelize.define("role",{
+
+//    rol: {
+//       type: DataTypes.STRING,
+//       validate: {
+//          isIn: [['ADMIN_ROLE', 'USER_ROLE']],
+//       },
+//       defaultValue: 'USER_ROLE',
+//       allowNull: false
+//    }
+// })
+
+// module.exports = Role;

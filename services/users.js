@@ -1,5 +1,4 @@
 const { request, response } = require('express');
-const sequelize = require('../database/db');
 const bcryptjs = require('bcryptjs');
 
 const { models } = require('../database/db');
@@ -11,14 +10,9 @@ const usersGet = async (req = request, res = response) => {
    const options = 
    {
       where: { status: true },
-      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion'],
-      include: [{
-         model: Role,
-         as: 'role',
-         attributes: ['role']
-      }]
+      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion', 'role'],
    }
-   const users = await User.findAndCountAll(options);
+   const users = await models.User.findAndCountAll(options);
 
    if (users) {
       res.status(200).json({
@@ -30,18 +24,23 @@ const usersGet = async (req = request, res = response) => {
          msg: `No existen usuarios en la BD`
       })
    }
-
-
 }
 
 const usersGetById = async (req = request, res = response) => {
    const { id } = req.params;
 
    const options = {
-      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion']
+      attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion', 'role'],
+      where: { status: true },
+      include: [
+         { 
+            association: 'orders',
+         }
+      ]
+
    }
 
-   const user = await User.findByPk(id, options);
+   const user = await models.User.findByPk(id, options);
 
    if (user) {
       res.status(200).json({
@@ -63,7 +62,7 @@ const usersPost = async (req = request, res = response) => {
 
    try {
 
-      const existeEmail = await User.findOne({
+      const existeEmail = await models.User.findOne({
          where: {
             correo: correo
          }
@@ -79,9 +78,7 @@ const usersPost = async (req = request, res = response) => {
       const salt = bcryptjs.genSaltSync();
       body.password = bcryptjs.hashSync(body.password, salt);
 
-      const newUser = await User.create(body, 
-         {include : ['role']}
-      );
+      const newUser = await models.User.create(body);
 
       res.status(200).json({
          msg: ' API - users Post',
@@ -104,7 +101,7 @@ const usersPut = async (req = request, res = response) => {
    const { body } = req;
 
    try {
-      const user = await User.findByPk(id);
+      const user = await models.User.findByPk(id);
       if (!user) {
          return res.status(404).json({
             msg: `No existe un usuario con el id ${id}`
@@ -131,7 +128,7 @@ const usersPut = async (req = request, res = response) => {
 const usersDelete = async (req = request, res = response) => {
    const { id } = req.params;
 
-   const user = await User.findByPk(id);
+   const user = await models.User.findByPk(id);
 
    if (!user) {
       console.log(`No existe un usuario con el id ${id}`)

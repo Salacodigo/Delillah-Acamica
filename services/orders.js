@@ -1,16 +1,20 @@
 const { request, response } = require('express');
 
-const { models } = require('../database/db')
-
-const { Order } = require('../models/order');
+const { models } = require('../database/db');
 
 const ordersGet = async (req = request, res= response) => {
 
    const options = {
-      where: { status: true }
+      where: { status: true },
+      include: [
+         { 
+            association: 'user',
+            attributes: ['id', 'usuario', 'nombre', 'correo', 'telefono', 'direccion', 'role'],
+         }
+      ]
    };
 
-   const orders = await Order.findAndCountAll(options);
+   const orders = await models.Order.findAndCountAll(options);
 
    if (orders) {
       res.status(200).json({
@@ -26,19 +30,19 @@ const ordersGet = async (req = request, res= response) => {
 
 
 const ordersGetById = async (req = request, res = response) => {
+   
    const { id } = req.params;
 
    const options = {
       where: { status: true },
       include: [
          { 
-            association: 'user',
-            include: ['role']
+            association: 'user'
          }
       ]
    };
 
-   const order = await Order.findByPk(id, options);
+   const order = await models.Order.findByPk(id, options);
 
    if(order){
       res.status(200).json({
@@ -59,7 +63,7 @@ const ordersPost = async (req = request, res = response) => {
    const body = req.body;
 
    try {
-      const newOrder = await Order.create(body);
+      const newOrder = await models.Order.create(body);
       
       res.status(200).json({
          msg: 'API - Post orders',
@@ -67,7 +71,7 @@ const ordersPost = async (req = request, res = response) => {
       })
 
    } catch (err) {
-      console.log(err);
+   
       res.status(500).json({
          msg: 'Hable con el administrador',
          err: err.errors
@@ -79,6 +83,7 @@ const ordersPost = async (req = request, res = response) => {
 
 
 const ordersPut = async (req = request, res = response) =>{
+
    res.status(200).json({
       msg: 'API - Put orders'
    })
@@ -94,10 +99,25 @@ const ordersDelete = async (req = request, res = response) => {
    })
 }
 
+
+const orderAddItem = async ( req = request, res = response ) => {
+
+   const body = req.body;
+
+   const newItem = await models.OrderProduct.create( body );
+
+   res.status(200).json({
+      msg: 'API - orderAddItem',
+      newItem
+   })
+  
+}
+
 module.exports = {
    ordersGet,
    ordersGetById,
    ordersPost,
    ordersPut,
-   ordersDelete
+   ordersDelete,
+   orderAddItem
 }

@@ -1,5 +1,5 @@
 //Script reservado para inicializar los valores de la base de datos
-const sequelize   = require('../database/db');
+const { models }   = require('../database/db');
 const bcryptjs    = require('bcryptjs');
 
 const { User }    = require('../models/user');
@@ -72,18 +72,8 @@ const createBasicUsers = async () => {
 
 //roles
 const seedRoles = [
-   {  
-      role: 'ADMIN_ROLE',
-      userId: 1,
-   },
-   {  
-      role: 'USER_ROLE',
-      userId: 2,
-   },
-   {  
-      role: 'USER_ROLE',
-      userId: 3,
-   },
+   {  role: 'ADMIN_ROLE' },
+   {  role: 'USER_ROLE'  },
 ]
 
 const createBasicRoles = async () => {
@@ -159,11 +149,55 @@ const createBasicProducts = async () => {
 }
 
 //Pedidos
+const seedOrders = [
+   {
+      status: true,
+      paymentMethod: "CASH",
+      userId: 1
+   },
+   {
+      status: true,
+      paymentMethod: "CASH",
+      userId: 2 
+   },
+]
+
+
+const createBasicOrders = async () => {
+   
+   try {
+      
+      console.log("O R D E N E S:");
+      seedOrders.forEach( seedOrder =>{
+         Order.create(seedOrder)
+         .then( order => {
+               console.log({
+                  msg: "Se ha guardado el pedido",
+                  order: order.dataValues
+               })
+         })
+         .catch(err => {
+            console.log(err)
+         })
+      })
+      
+   } catch (err) {
+      console.log({
+         msg: 'Error creando los pedidos iniciales',
+         err: err.errors
+      })
+   }
+}
+
+//Productos en pedidos
+
+
 
 const initSeedValues = async () => {
    createBasicUsers();
    createBasicRoles();
    createBasicProducts();
+   createBasicOrders();
 }
 
 module.exports = {
