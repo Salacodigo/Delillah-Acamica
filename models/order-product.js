@@ -1,7 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const { ORDER_TABLE } = require('../models/order');
-const { PRODUCT_TABLE } = require('../models/product');
+const { Order, ORDER_TABLE } = require('../models/order');
+const { Product, PRODUCT_TABLE } = require('../models/product');
 
 const ORDER_PRODUCT_TABLE = 'orders_products';
 
@@ -18,34 +18,32 @@ const OrderProductSchema = {
       field: 'created_at',
       defaultValue: Sequelize.NOW,
    },
-   orderId: {
-      field: 'orderId',
-      // field: 'order_id',
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-         model: ORDER_TABLE,
-         key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
-   },
-   productId: {
-      field: 'productId',
-      // field: 'product_id',
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-         model: PRODUCT_TABLE,
-         key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
-   },
+   // orderId: {
+   //    field: 'order_id',
+   //    allowNull: false,
+   //    type: DataTypes.INTEGER,
+   //    references: {
+   //       model: Order,
+   //       key: 'id'
+   //    },
+   //    onUpdate: 'CASCADE',
+   //    onDelete: 'SET NULL',
+   // },
+   // productId: {
+   //    field: 'product_id',
+   //    allowNull: false,
+   //    type: DataTypes.INTEGER,
+   //    references: {
+   //       model: Product,
+   //       key: 'id'
+   //    },
+   //    onUpdate: 'CASCADE',
+   //    onDelete: 'SET NULL'
+   // },
    amount: {
       allowNull: false,
       type: DataTypes.INTEGER
-   }
+   },
 }
 
 

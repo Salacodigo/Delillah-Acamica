@@ -1,6 +1,7 @@
 const{ Model, DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database/db');
 
+const { ORDER_PRODUCT_TABLE } = require('../models/order-product');
 const PRODUCT_TABLE = 'products';
 
 const ProductSchema = {
@@ -45,10 +46,13 @@ const ProductSchema = {
 class Product extends Model {
    
    static associate(models){
+      
       // this.belongsToMany(models.Order, {
       //    as: 'items',
-      //    through: models.OrderProduct,
+      //    through: ORDER_PRODUCT_TABLE,
+      //    // through: models.OrderProduct,
       //    foreignKey: 'productId',
+      //    otherKey: 'orderId'
       // })
    }
 

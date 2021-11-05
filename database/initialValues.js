@@ -5,6 +5,7 @@ const bcryptjs    = require('bcryptjs');
 const { User }    = require('../models/user');
 const { Role }    = require('../models/role');
 const { Product } = require('../models/product');
+const { Order } = require('../models/order');
 
 
 //usuarios
@@ -157,7 +158,7 @@ const seedOrders = [
    },
    {
       status: true,
-      paymentMethod: "CASH",
+      paymentMethod: "CREDIT_CARD",
       userId: 2 
    },
 ]
@@ -190,6 +191,7 @@ const createBasicOrders = async () => {
 }
 
 //Productos en pedidos
+
 
 
 

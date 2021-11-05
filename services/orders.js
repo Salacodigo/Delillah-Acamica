@@ -38,6 +38,9 @@ const ordersGetById = async (req = request, res = response) => {
       include: [
          { 
             association: 'user'
+         },
+         { 
+            association: 'items'
          }
       ]
    };

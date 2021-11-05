@@ -1,4 +1,4 @@
-const {request , response } =require('express');
+const {request , response } = require('express');
 const jwt = require('jsonwebtoken');
 
 const { User } = require('../models/user');

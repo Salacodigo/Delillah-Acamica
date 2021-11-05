@@ -1,5 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
+const { ORDER_PRODUCT_TABLE } = require('../models/order-product');
 const USER_TABLE = require('../models/user');
 
 const ORDER_TABLE = 'orders';
@@ -49,11 +50,6 @@ const OrderSchema = {
          key: 'id'
       },
    },
-   // Referencia a los productos
-   
-   //valor total
-
-
 }
 
 
@@ -67,8 +63,10 @@ class Order extends Model {
 
       this.belongsToMany(models.Product, {
          as: 'items',
-         through: models.OrderProduct, // Tabla que hace el JOIN
-         foreignKey: 'orderId', //llave de la tabla donde estoy resolviendo la relación
+         // Tabla que hace el JOIN
+         through: models.OrderProduct, 
+         //llave de la tabla donde estoy resolviendo la relación
+         foreignKey: 'orderId', 
          otherKey: 'productId' // La otra llave
       })
    }

@@ -8,7 +8,7 @@ const UserSchema = {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
-  },
+   },
    usuario: {
       allowNull: false,
       notEmpty: true,
