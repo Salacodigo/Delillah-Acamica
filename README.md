@@ -57,7 +57,7 @@ npm start
 
 ## Branchs
 
-The master branch is main branch
+The master branch is the main branch
 
 The modelosComoClases branch was useful to change the architecture of the project.
 
@@ -74,8 +74,7 @@ The modelosComoClases branch was useful to change the architecture of the projec
 
 Proyecto Sprint 3
 
-# Delillah-Restó (English)
-
+# Delillah-Restó (Español)
 
 ## Proyecto
 
