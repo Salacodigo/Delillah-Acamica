@@ -114,9 +114,9 @@ npm install
 
 En la terminal, ubicado en la carpeta del proyecto, escribe:
 
-'''
+```
 npm start
-'''
+```
 
 
 ## Documentación
