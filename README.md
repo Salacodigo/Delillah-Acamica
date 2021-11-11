@@ -44,9 +44,9 @@ npm install
 
 In the terminal, located into the project folder type:
 
-'''
+```
 npm start
-'''
+```
 
 
 ## Documentation
