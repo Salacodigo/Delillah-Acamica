@@ -131,9 +131,9 @@ const usersDelete = async (req = request, res = response) => {
    const user = await models.User.findByPk(id);
 
    if (!user) {
-      console.log(`No existe un usuario con el id ${id}`)
       return res.status(500).json({
-         msg: 'API - users delete'
+         msg: 'API - users delete',
+         err: `No existe un usuario con el id ${id}`
       })
    }
 
@@ -141,7 +141,10 @@ const usersDelete = async (req = request, res = response) => {
    // await usuario.destroy();
 
 
-   res.status(200).json(user);
+   res.status(200).json({
+      msg: 'API - Delete order',
+      user
+   });
 }
 
 
