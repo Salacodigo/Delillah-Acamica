@@ -105,14 +105,23 @@ const ordersDelete = async (req = request, res = response) => {
 
 const orderAddItem = async ( req = request, res = response ) => {
 
-   const body = req.body;
+   try {
+      const body = req.body;
+   
+      const newItem = await models.OrderProduct.create( body );
+   
+      res.status(200).json({
+         msg: 'API - orderAddItem',
+         newItem
+      })
 
-   const newItem = await models.OrderProduct.create( body );
+   } catch (err) {
+      res.status(500).json({
+         msg: 'Hable con el administrador',
+         err: err.errors
+      });
+   }
 
-   res.status(200).json({
-      msg: 'API - orderAddItem',
-      newItem
-   })
   
 }
 

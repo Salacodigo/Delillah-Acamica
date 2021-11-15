@@ -6,6 +6,7 @@ const { User }    = require('../models/user');
 const { Role }    = require('../models/role');
 const { Product } = require('../models/product');
 const { Order } = require('../models/order');
+const { OrderProduct } = require('../models/order-product');
 
 
 //usuarios
@@ -191,7 +192,39 @@ const createBasicOrders = async () => {
 }
 
 //Productos en pedidos
+const seedAddProducts = [
+   {
+      "orderId": 1,
+      "productId": 1,
+      "amount": 2
+   },
 
+]
+
+const addBasicProductsToOrders = async () => {
+   try {
+      
+      console.log("P R O D U C T O S EN O R D E N E S:");
+      seedAddProducts.forEach( seedAddProduct => {
+         OrderProduct.create(seedAddProduct)
+         .then( orderProduct => {
+               console.log({
+                  msg: "Se ha añadido el producto al pedido",
+                  orderProduct
+               })
+         })
+         .catch(err => {
+            console.log(err)
+         })
+      })
+      
+   } catch (err) {
+      console.log({
+         msg: 'Error añadiendo los productos a los pedidos iniciales',
+         err: err.errors
+      })
+   }
+}
 
 
 
@@ -200,6 +233,7 @@ const initSeedValues = async () => {
    createBasicRoles();
    createBasicProducts();
    createBasicOrders();
+   addBasicProductsToOrders();
 }
 
 module.exports = {
