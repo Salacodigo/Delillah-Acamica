@@ -32,6 +32,7 @@ Technologies used:
     "sequelize": "^6.6.5"
   }
 ```
+<br>
 ## Intallation of dependencies
 In the terminal, located into the project folder type:
 
@@ -39,7 +40,7 @@ In the terminal, located into the project folder type:
 ```
 npm install 
 ```
-
+<br>
 # Database configuration
 
 Configure the database with the following data access.
@@ -57,6 +58,8 @@ module.exports = {
   database
 }
 ```
+<br>
+Note: The password corresponds to the root password of mySQL server community. You need to create a new Schema called "delillah_db" as our "database".
 
 
 path: Delillah-Acamica/database/db.js 
@@ -137,7 +140,7 @@ The modelosComoClases branch was useful to change the architecture of the projec
 * Santiago Salamanca. [See LinkedIn](https://www.linkedin.com/in/santiagosalamancadev
 )
 
-
+<br><br><br><br><br>
 
 
 # sprintBackend
@@ -197,6 +200,10 @@ module.exports = {
   database
 }
 ```
+Nota: The password corresponds to the root password of mySQL server community. You need to create a new Schema called "delillah_db" as our "database".
+
+<br>
+<br>
 
 
 Ruta: Delillah-Acamica/database/db.js 
