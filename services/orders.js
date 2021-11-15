@@ -94,11 +94,22 @@ const ordersPut = async (req = request, res = response) =>{
 
 
 const ordersDelete = async (req = request, res = response) => {
-   const id = req.params.id;
+   const { id } = req.params;
+
+   const order = await models.Order.findByPk(id);
+
+   if(!order){
+      return res.status(500).json({
+         msg: 'API - users delete',
+         err: `No existe una orden con el id ${id}`
+      })
+   }
+
+   await order.update({ status: false });
 
    res.status(200).json({
       msg: 'API - Delete order',
-      id
+      order
    })
 }
 

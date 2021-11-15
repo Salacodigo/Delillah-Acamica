@@ -46,14 +46,7 @@ const ProductSchema = {
 class Product extends Model {
    
    static associate(models){
-      
-      // this.belongsToMany(models.Order, {
-      //    as: 'items',
-      //    through: ORDER_PRODUCT_TABLE,
-      //    // through: models.OrderProduct,
-      //    foreignKey: 'productId',
-      //    otherKey: 'orderId'
-      // })
+      //
    }
 
    static config (sequelize) {
