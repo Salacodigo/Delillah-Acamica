@@ -1,8 +1,8 @@
 const database = {
-  username: "root",
-  password: "passSantiago2021",
-  database: "delillah_db",
-  host: "localhost"
+  username: "root",             // user name
+  password: "passSantiago2021", // password
+  database: "delillah_db",      // database name
+  host: "localhost",            // host
 }
 module.exports = {
   database

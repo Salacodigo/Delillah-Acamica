@@ -40,7 +40,77 @@ In the terminal, located into the project folder type:
 npm install 
 ```
 
+# Database configuration
+
+Configure the database with the following data access.
+path: Delillah-Acamica/database/config.js 
+
+```
+const database = {
+  username: "root",             // user name
+  password: "passSantiago2021", // password
+  database: "delillah_db",      // database name
+  host: "localhost",            // host
+}
+module.exports = {
+  database
+}
+```
+
+
+path: Delillah-Acamica/database/db.js 
+```
+const { Sequelize } = require('sequelize');
+const { database } = require('./config');
+
+const { setupModels } = require('../models/index');
+
+
+const sequelize = new Sequelize(
+   database.database,
+   database.username,
+   database.password,
+   {
+      host: database.host,
+      dialect: "mysql",
+   }
+);
+
+setupModels(sequelize);
+
+module.exports = sequelize;
+```
+
+
+The port is assigned in
+path: Delillah-Acamica/models/server.js
+
+```
+class Server {
+
+   constructor() {
+      this.app = express();
+      this.port = process.env.PORT || 3000;
+    
+```
+
+
+
+## Valores iniciales
+
+Los valores iniciales de la base de datos se encuentran en
+la ruta: Delillah-Acamica/database/initialValues.js
+
+Estos valores se crean automaticamente al utilizar el comando:
+
+```
+npm start
+```
+
+
 ## Run the project
+
+The project create the database connection automatically and the initial tables with the following instruction.
 
 In the terminal, located into the project folder type:
 
@@ -110,7 +180,76 @@ En la terminal, ubicado en la carpeta del proyecto, escribe:
 npm install 
 ```
 
+## Configuración de la base de datos
+
+Para configurar los datos de acceso a la base de datos utilizamos los siguientes archivos:
+
+Ruta: Delillah-Acamica/database/config.js 
+```
+const database = {
+  username: "root",             // user name
+  password: "passSantiago2021", // password
+  database: "delillah_db",      // database name
+  host: "localhost",            // host
+}
+module.exports = {
+  database
+}
+```
+
+
+Ruta: Delillah-Acamica/database/db.js 
+```
+const { Sequelize } = require('sequelize');
+const { database } = require('./config');
+
+const { setupModels } = require('../models/index');
+
+
+const sequelize = new Sequelize(
+   database.database,
+   database.username,
+   database.password,
+   {
+      host: database.host,
+      dialect: "mysql",
+   }
+);
+
+setupModels(sequelize);
+
+module.exports = sequelize;
+```
+
+
+El puerto es asignado en la
+ruta: Delillah-Acamica/models/server.js
+
+```
+class Server {
+
+   constructor() {
+      this.app = express();
+      this.port = process.env.PORT || 3000;
+    
+```
+
+
+
+## Valores iniciales
+
+Los valores iniciales de la base de datos se encuentran en
+la ruta: Delillah-Acamica/database/initialValues.js
+
+Estos valores se crean automaticamente al utilizar el comando:
+
+```
+npm start
+```
+
 ## Correr el proyecto
+
+El proyecto crea la conexión con la base de datos y las tablas iniciales con el comando que se muestra a continuación.
 
 En la terminal, ubicado en la carpeta del proyecto, escribe:
 
