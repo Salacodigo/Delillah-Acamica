@@ -96,12 +96,11 @@ class Server {
 
 
 
-## Valores iniciales
+## Init values
 
-Los valores iniciales de la base de datos se encuentran en
-la ruta: Delillah-Acamica/database/initialValues.js
+Default values of the database are in the path: Delillah-Acamica/database/initialValues.js
 
-Estos valores se crean automaticamente al utilizar el comando:
+These values are created automatically when you type:
 
 ```
 npm start
