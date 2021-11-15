@@ -200,7 +200,7 @@ module.exports = {
   database
 }
 ```
-Nota: The password corresponds to the root password of mySQL server community. You need to create a new Schema called "delillah_db" as our "database".
+Nota: La contraseña corresponde a la del usuario root del mySQL server community. Se debe crear un nuevo schema llamado "delillah_db" que funcionará como nuestra base de datos.
 
 <br>
 <br>
