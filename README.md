@@ -51,6 +51,7 @@ const database = {
   password: "passSantiago2021", // password
   database: "delillah_db",      // database name
   host: "localhost",            // host
+  port: "3306"                  // port
 }
 module.exports = {
   database
@@ -82,7 +83,7 @@ module.exports = sequelize;
 ```
 
 
-The port is assigned in
+The server's port is assigned in
 path: Delillah-Acamica/models/server.js
 
 ```
@@ -190,6 +191,7 @@ const database = {
   password: "passSantiago2021", // password
   database: "delillah_db",      // database name
   host: "localhost",            // host
+  port: "3306"                  // port
 }
 module.exports = {
   database
@@ -221,7 +223,7 @@ module.exports = sequelize;
 ```
 
 
-El puerto es asignado en la
+El puerto del servidor es asignado en la
 ruta: Delillah-Acamica/models/server.js
 
 ```
